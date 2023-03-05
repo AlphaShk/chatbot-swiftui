@@ -8,6 +8,12 @@
 import Foundation
 
 public class K {
-    public static let userPostUrl = "http://localhost:8080/api/v1/users"
-    public static let questionPostUrl = "http://localhost:8080/api/v1/questions/users/"
+    
+    private static let rootUrl = "https://chatbot.regmik.ua"
+    private static let apiVersion = "/api/v1"
+    
+    public static let userUrl = rootUrl + apiVersion + "/users"
+    public static let questionPostUrl = rootUrl + apiVersion + "/questions/users/"
+
+    public static let key = "userID"
 }

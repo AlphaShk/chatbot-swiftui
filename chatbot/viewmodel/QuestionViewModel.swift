@@ -13,7 +13,7 @@ extension ContentView {
         
         let service = RequestService()
         
-        func getAnswer(for question: String, userID: Int) -> String? {
+        func getAnswerString(for question: String, userID: Int, completion: @escaping (String) -> Void) {
 
             let encoder = JSONEncoder()
             
@@ -25,25 +25,37 @@ extension ContentView {
                 print("Error Encoding")
             }
             
-            guard let answerResponse = service.sendPostRequest(urlString: K.questionPostUrl + String(userID), parameters: questionRequest) else { return nil }
-            
-            let decoder = JSONDecoder()
-            do {
+            service.sendRequest(urlString: K.questionPostUrl + String(userID), method: "POST", parameters: questionRequest) { data, error in
                 
-                let answer = try decoder.decode(Answer.self, from: answerResponse).body
-                
-                return answer
-                
-            } catch {
-                print("Error Decoding")
+                guard let answerData = data else { return }
+                let decoder = JSONDecoder()
+                do {
+                    
+                    let answer = try decoder.decode(Answers.self, from: answerData).answers[0].body
+                    completion(answer)
+                    
+                } catch {
+                    print("Error Decoding")
+                }
             }
-            
-            return nil
+        }
+        
+        func getQuestionsByUser(userID: Int, completion: @escaping ([QAPair]) -> Void) {
+            service.sendRequest(urlString: K.userUrl + "/" + String(userID) + "/questions", method: "GET", parameters: nil) { data, error in
+                
+                guard let qaData = data else { return }
+                let decoder = JSONDecoder()
+                do {
+                    
+                    let array = try decoder.decode([QAPair].self, from: qaData)
+    
+                    completion(array)
+                    
+                } catch {
+                    print("Error Decoding")
+                }
+            }
         }
     
-        func test(for question: String, userID: Int) -> String? {
-            
-            return "Das kann ich leider noch nicht beantworten"
-        }
     }
 }

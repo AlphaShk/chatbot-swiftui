@@ -68,10 +68,10 @@
 			isa = PBXGroup;
 			children = (
 				408CEEC1296CBFF30072371C /* chatbotApp.swift */,
+				40DE6EE029881194000AF08E /* service */,
 				40C130F629802CE1003B75E4 /* model */,
 				40C130F729802CF5003B75E4 /* viewmodel */,
 				40C130F829802D0C003B75E4 /* view */,
-				40C130EC2971BD18003B75E4 /* User.swift */,
 				40C130EA2971BC11003B75E4 /* Constants.swift */,
 				408CEEC5296CBFF50072371C /* Assets.xcassets */,
 				408CEEC7296CBFF50072371C /* Preview Content */,
@@ -90,7 +90,7 @@
 		40C130F629802CE1003B75E4 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				40C130F229802659003B75E4 /* RequestService.swift */,
+				40C130EC2971BD18003B75E4 /* User.swift */,
 				40C130EE298022C5003B75E4 /* Answer.swift */,
 				40C130F029802355003B75E4 /* Question.swift */,
 				40DE6EDE2987C264000AF08E /* Message.swift */,
@@ -113,6 +113,14 @@
 				408CEEC3296CBFF30072371C /* ContentView.swift */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		40DE6EE029881194000AF08E /* service */ = {
+			isa = PBXGroup;
+			children = (
+				40C130F229802659003B75E4 /* RequestService.swift */,
+			);
+			path = service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,11 +334,12 @@
 				DEVELOPMENT_TEAM = N4Z48S7KUM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = chatbot/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -355,11 +364,12 @@
 				DEVELOPMENT_TEAM = N4Z48S7KUM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = chatbot/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

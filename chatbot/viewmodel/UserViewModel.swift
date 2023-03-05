@@ -10,11 +10,9 @@ import Foundation
 extension ContentView {
     @MainActor class UserViewModel: ObservableObject {
         
-        @Published var id: Int?
-        
         let service = RequestService()
         
-        func registerUser(name: String) -> String? {
+        func registerUser(name: String, completion: @escaping (User) -> Void) {
             
             let encoder = JSONEncoder()
             
@@ -26,28 +24,40 @@ extension ContentView {
                 print("Error Encoding")
             }
             
-            guard let userResponse = service.sendPostRequest(urlString: K.userPostUrl, parameters: userRequest) else { return nil }
-            
-            let decoder = JSONDecoder()
-            do {
                 
-                let user = try decoder.decode(User.self, from: userResponse)
-                if let userId = user.id {
-                    id = Int(userId)
+            service.sendRequest(urlString: K.userUrl, method: "POST", parameters: userRequest) { data, error in
+                
+                guard let responseData = data else { return }
+                do {
+                    
+                    let decoder = JSONDecoder()
+                    let user = try decoder.decode(User.self, from: responseData)
+                
+                    completion(user)
+                } catch {
+                    print("Error Decoding")
                 }
-                return user.name
-                
-            } catch {
-                print("Error Decoding")
             }
             
-            return nil
         }
         
-        func test(name: String) -> String? {
-            id = 3
-            
-            return name
+        func getUser(by id: Int, completion: @escaping (User) -> Void) {
+            service.sendRequest(urlString: K.userUrl + "/" + String(id), method: "GET", parameters: nil) { data, error in
+                
+                guard let userData = data else { return }
+                print(userData)
+                do {
+                    
+                    let decoder = JSONDecoder()
+                    let user = try decoder.decode(User.self, from: userData)
+                
+                    completion(user)
+                    
+                } catch {
+                    print("Error Decoding")
+                }
+                
+            }
         }
     }
     

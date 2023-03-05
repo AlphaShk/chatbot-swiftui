@@ -7,6 +7,9 @@
 
 import Foundation
 
+struct Answers: Decodable {
+    let answers: [Answer]
+}
 struct Answer: Decodable {
     let body: String
 }
