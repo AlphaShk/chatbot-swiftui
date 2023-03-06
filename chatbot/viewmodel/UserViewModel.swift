@@ -41,7 +41,7 @@ extension ContentView {
             
         }
         
-        func getUser(by id: Int, completion: @escaping (User) -> Void) {
+        func getUser(by id: UInt64, completion: @escaping (User) -> Void) {
             service.sendRequest(urlString: K.userUrl + "/" + String(id), method: "GET", parameters: nil) { data, error in
                 
                 guard let userData = data else { return }

@@ -14,7 +14,7 @@ struct ContentView: View {
     @StateObject private var questionVM = QuestionViewModel()
     
     @State private var textField = ""
-    @State private var id: Int?
+    @State private var id: UInt64?
     
     @State private var messages = [Message]()
     
@@ -80,7 +80,7 @@ struct ContentView: View {
             .rotationEffect(.degrees(180))
             .background(Color.gray.opacity(0.1))
             .onAppear() {
-                if let id = UserDefaults.standard.object(forKey: K.key) as? Int {
+                if let id = UserDefaults.standard.object(forKey: K.key) as? UInt64 {
                     self.id = id
                     sayHello(id: id)
                     showPrevious(for: id)
@@ -113,13 +113,24 @@ struct ContentView: View {
         
     }
     func sendMessage(text: String) {
-        if id != nil {
+        if id != nil && text.last == "?" && text.count > 5 {
             sendQuestion(question: text)
+        } else if id != nil && (text.last != "?" || text.count <= 5) {
+            incorrectQuestion(text: text)
         } else {
             register(name: text)
         }
     }
     
+    func incorrectQuestion(text: String) {
+        withAnimation {
+            messages.append(Message(text: text, isUser: true))
+        }
+        self.textField = ""
+        withAnimation {
+            messages.append(Message(text: "Es ist leider keine Frage.", isUser: false))
+        }
+    }
     func register(name: String) {
     
         withAnimation {
@@ -144,7 +155,7 @@ struct ContentView: View {
         }
     }
     
-    func sayHello(id: Int) {
+    func sayHello(id: UInt64) {
         userVM.getUser(by: id) { user in
             DispatchQueue.main.async {
                 messages.insert(Message(text: "Hi, " + user.name! + ". Hier sind die Fragen, die du früher gestellt hast:", isUser: false), at: 0)
@@ -152,7 +163,7 @@ struct ContentView: View {
             
         }
     }
-    func showPrevious(for id: Int) {
+    func showPrevious(for id: UInt64) {
         
         questionVM.getQuestionsByUser(userID: id) { array in
             DispatchQueue.main.async {

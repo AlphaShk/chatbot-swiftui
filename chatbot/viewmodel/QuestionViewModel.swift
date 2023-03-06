@@ -13,7 +13,7 @@ extension ContentView {
         
         let service = RequestService()
         
-        func getAnswerString(for question: String, userID: Int, completion: @escaping (String) -> Void) {
+        func getAnswerString(for question: String, userID: UInt64, completion: @escaping (String) -> Void) {
 
             let encoder = JSONEncoder()
             
@@ -40,7 +40,7 @@ extension ContentView {
             }
         }
         
-        func getQuestionsByUser(userID: Int, completion: @escaping ([QAPair]) -> Void) {
+        func getQuestionsByUser(userID: UInt64, completion: @escaping ([QAPair]) -> Void) {
             service.sendRequest(urlString: K.userUrl + "/" + String(userID) + "/questions", method: "GET", parameters: nil) { data, error in
                 
                 guard let qaData = data else { return }

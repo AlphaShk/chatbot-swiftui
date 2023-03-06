@@ -12,7 +12,7 @@ struct Question: Encodable {
 }
 
 struct QAPair: Decodable {
-    let id: Int
+    let id: UInt64
     let body: String
     let answers: [Answer]
 }
